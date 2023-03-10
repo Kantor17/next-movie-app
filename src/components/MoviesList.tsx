@@ -1,21 +1,28 @@
-import { Card, Grid, Typography } from "@mui/material";
+import { Box, CircularProgress, Grid, Typography } from "@mui/material";
 import { useAppSelector } from "../hooks";
+import { MovieCard } from "./MovieCard";
 
 const MoviesList = () => {
   const { movies, status, error } = useAppSelector((state) => state.search);
+  if (status === "pending")
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center", py: 2 }}>
+        <CircularProgress />
+      </Box>
+    );
   if (!movies)
     return (
-      <Typography>Type in a title to get a list of matching movies.</Typography>
+      <Typography sx={{ py: 1.5 }}>
+        Type in a title to get a list of matching movies.
+      </Typography>
     );
-  if (status === "pending") return <Typography>Loading...</Typography>;
-  if (error) return <Typography>{error.message}</Typography>;
+  if (error) return <Typography color="error">{error.message}</Typography>;
   return (
-    <Grid>
+    <Grid container spacing={2} sx={{ py: 2 }}>
       {movies.map((movie) => (
-        <Card key={movie.imdbID}>
-          <Typography>{movie.Title}</Typography>
-          <Typography>{movie.Year}</Typography>
-        </Card>
+        <Grid item key={movie.imdbID} md={3} sm={6} xs={12}>
+          <MovieCard movie={movie} />
+        </Grid>
       ))}
     </Grid>
   );
