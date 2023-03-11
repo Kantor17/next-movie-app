@@ -4,7 +4,7 @@ interface Response {
   Search?: Movie[];
   totalResults?: string;
   Error?: string;
-  Response: string;
+  Response: "True" | "False";
 }
 
 export default async function fetchMovies(query: string): Promise<Response> {

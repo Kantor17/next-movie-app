@@ -18,7 +18,7 @@ export default function MyApp({ Component, ...rest }: AppProps) {
     <ThemeProvider theme={darkTheme}>
       <CssBaseline>
         <Provider store={store}>
-            <Component {...props.pageProps} />
+          <Component {...props.pageProps} />
         </Provider>
       </CssBaseline>
     </ThemeProvider>
