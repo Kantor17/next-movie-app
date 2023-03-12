@@ -1,16 +1,17 @@
 import { Box, IconButton, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { useAppDispatch } from "../hooks";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import { searchMovies } from "../store/slices/searchSlice";
 import { FormEvent, useState } from "react";
 
 const SearchBar = () => {
-  const [searchQuery, setSearchQuery] = useState("");
+  const query = useAppSelector((state) => state.search.query);
+  const [searchQuery, setSearchQuery] = useState(query);
   const dispatch = useAppDispatch();
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    dispatch(searchMovies(searchQuery));
+    dispatch(searchMovies({ query: searchQuery }));
   }
   return (
     <Box component="form" onSubmit={handleSubmit}>
@@ -22,6 +23,7 @@ const SearchBar = () => {
         variant="outlined"
         placeholder="Search..."
         size="small"
+        value={searchQuery}
       />
       <IconButton
         type="submit"
