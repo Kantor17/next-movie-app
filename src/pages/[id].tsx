@@ -1,12 +1,12 @@
-import { Container, Grid, Typography } from "@mui/material";
+import { Button, Container, Grid, Typography } from "@mui/material";
 import { GetServerSideProps } from "next";
 import fetchMovieDetails from "../API/fetchMovieDetails";
 import { MovieDetails } from "../types";
 import posterPlaceholder from "../../public/poster-placeholder.jpg";
-import { Box } from "@mui/system";
 import { DetailsField } from "../components/DetailsField";
 import { Header } from "../components/Header";
 import { NextSeo } from "next-seo";
+import { useFavoritesHandler } from "../hooks";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const id = params?.id as string;
@@ -24,6 +24,15 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 };
 
 export const MovieDetailsPage = ({ movie }: { movie: MovieDetails }) => {
+  const { Title, Year, imdbID, Type, Poster } = movie;
+  const { inFavorites, onFavoriteClick } = useFavoritesHandler({
+    Title,
+    Year,
+    imdbID,
+    Type,
+    Poster,
+  });
+
   return (
     <>
       <NextSeo
@@ -39,15 +48,26 @@ export const MovieDetailsPage = ({ movie }: { movie: MovieDetails }) => {
           spacing={2}
           sx={{ minHeight: "100vh", py: 3 }}
         >
-          <Grid item md={6}>
-            <img
-              height="450"
-              style={{ maxWidth: "100%" }}
-              src={
-                movie.Poster !== "N/A" ? movie.Poster : posterPlaceholder.src
-              }
-              alt={`${movie.Title} poster`}
-            />
+          <Grid item md={6} container direction="column" alignContent="center">
+            <Grid item>
+              <img
+                height="450"
+                style={{ maxWidth: "100%" }}
+                src={
+                  movie.Poster !== "N/A" ? movie.Poster : posterPlaceholder.src
+                }
+                alt={`${movie.Title} poster`}
+              />
+            </Grid>
+            <Grid item>
+              <Button
+                sx={{ width: "100%" }}
+                variant="outlined"
+                onClick={onFavoriteClick}
+              >
+                {inFavorites ? "Remove from favorites" : "Add to favorites"}
+              </Button>
+            </Grid>
           </Grid>
           <Grid item md={6} container direction="column" spacing={0.5}>
             <Grid item sx={{ mb: 1 }}>

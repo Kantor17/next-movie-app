@@ -17,7 +17,7 @@ export interface MovieDetails {
   Language?: string;
   Metascore?: string;
   Plot?: string;
-  Poster?: string;
+  Poster: string;
   production?: string;
   Rated?: string;
   Ratings?: {
@@ -28,10 +28,10 @@ export interface MovieDetails {
   Response: "True" | "False";
   Runtime?: string;
   Title: string;
-  Type?: string;
+  Type: string;
   Website?: string;
   Writer?: string;
-  Year?: string;
+  Year: string;
   imdbID: string;
   imdbRating?: string;
   imdbVotes?: string;

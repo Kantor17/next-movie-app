@@ -1,8 +1,8 @@
-import { Box, CircularProgress, Grid, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import { useAppSelector } from "../hooks";
-import { MovieCard } from "./MovieCard";
+import MovieList from "./MovieList";
 
-const MoviesList = () => {
+const SearchList = () => {
   const { movies, status, error } = useAppSelector((state) => state.search);
   if (status === "pending")
     return (
@@ -17,15 +17,7 @@ const MoviesList = () => {
       </Typography>
     );
   if (error) return <Typography color="error">{error.message}</Typography>;
-  return (
-    <Grid container spacing={2} sx={{ py: 2 }}>
-      {movies.map((movie) => (
-        <Grid item key={movie.imdbID} md={3} sm={6} xs={12}>
-          <MovieCard movie={movie} />
-        </Grid>
-      ))}
-    </Grid>
-  );
+  return <MovieList movies={movies} />;
 };
 
-export default MoviesList;
+export default SearchList;

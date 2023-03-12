@@ -1,26 +1,36 @@
-import {
-  AppBar,
-  Container,
-  IconButton,
-} from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useRouter } from "next/router";
+import { AppBar, Container, Toolbar, Typography } from "@mui/material";
+import Link from "@mui/material/Link";
 
 export const Header = () => {
-  const router = useRouter();
   return (
-    <AppBar position="static">
-        <Container>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            onClick={() => router.back()}
-          >
-            <ArrowBackIcon />
-          </IconButton>
-        </Container>
+    <AppBar position="relative">
+      <Container>
+        <Toolbar
+          variant="dense"
+          disableGutters
+          sx={{ justifyContent: "space-between", alignItems: "center" }}
+        >
+          <Link href={"/"}>
+            <Typography
+              variant="h5"
+              component="span"
+              noWrap
+              sx={{
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              LOGO
+            </Typography>
+          </Link>
+          <Link href="/favorites">
+            Favorites
+          </Link>
+        </Toolbar>
+      </Container>
     </AppBar>
   );
 };

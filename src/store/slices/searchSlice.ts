@@ -1,10 +1,11 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { AnyAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { HYDRATE } from "next-redux-wrapper";
 import fetchMovies from "../../API/fetchMovies";
 import { Movie } from "../../types";
 
 const MOVIES_PER_PAGE = 10;
 
-interface SearchState {
+export interface SearchState {
   movies: Movie[] | null;
   status: "pending" | "rejected" | "fulfilled";
   error: Error | null;

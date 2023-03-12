@@ -2,7 +2,7 @@ import { Pagination, Stack } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { searchMovies } from "../store/slices/searchSlice";
 
-export const MoviesPagination = () => {
+export const SearchPagination = () => {
   const dispatch = useAppDispatch();
   const { movies, totalPages, currentPage, query } = useAppSelector(
     (state) => state.search
@@ -25,4 +25,4 @@ export const MoviesPagination = () => {
   );
 };
 
-export default MoviesPagination;
+export default SearchPagination;
