@@ -4,7 +4,7 @@ import { searchMovies } from "../store/slices/searchSlice";
 
 export const SearchPagination = () => {
   const dispatch = useAppDispatch();
-  const { movies, totalPages, currentPage, query } = useAppSelector(
+  const { movies, totalPages, currentPage, query, status } = useAppSelector(
     (state) => state.search
   );
 
@@ -12,7 +12,7 @@ export const SearchPagination = () => {
     dispatch(searchMovies({ query, page }));
   }
 
-  if (!movies || movies.length < 1 || totalPages < 2) return null;
+  if (!movies || totalPages < 2 || status !== "fulfilled") return null;
   return (
     <Stack alignItems="center">
       <Pagination
